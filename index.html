@@ -1,1347 +1,680 @@
 <!DOCTYPE html>
-<html lang="bn" dir="ltr">
+<html lang="bn">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="theme-color" content="#0f172a">
-    <meta name="background-color" content="#0f172a">
-    <meta name="description" content="বাংলাদেশের সকল জেলার সেহরি ও ইফতারের সময়সূচি, নামাজের সময় এবং কাউন্টডাউন টাইমার">
-    <meta name="keywords" content="রমজান, সেহরি, ইফতার, নামাজ, সময়সূচি, বাংলাদেশ, ramadan, bangladesh">
-    <meta name="author" content="Ramadan BD">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="রমজান টাইম">
-    <meta name="mobile-web-app-capable" content="yes">
-    
-    <!-- Open Graph -->
-    <meta property="og:title" content="রমজান টাইম - বাংলাদেশ">
-    <meta property="og:description" content="সেহরি ও ইফতারের সময়সূচি">
-    <meta property="og:type" content="website">
-    <meta property="og:image" content="icons/icon-512x512.png">
-    
-    <!-- Twitter -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="রমজান টাইম">
-    <meta name="twitter:description" content="বাংলাদেশের রমজান সময়সূচি">
-    
-    <title>রমজান টাইম | বাংলাদেশ</title>
-    
-    <!-- Preconnect -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://xlahr.pro.bd">
-    
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
-    <!-- PWA Manifest -->
-    <link rel="manifest" href="manifest.json">
-    
-    <!-- Icons -->
-    <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192x192.png">
-    <link rel="apple-touch-icon" href="icons/icon-192x192.png">
-    <link rel="mask-icon" href="icons/icon-192x192.png" color="#0f172a">
-    
+    <title>রমজান টাইম - বাংলাদেশ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --bg-primary: #0f172a;
-            --bg-secondary: #1e293b;
-            --bg-glass: rgba(255, 255, 255, 0.08);
-            --border-glass: rgba(255, 255, 255, 0.1);
-            --text-primary: #f8fafc;
-            --text-secondary: #94a3b8;
-            --accent-gold: #fbbf24;
-            --accent-gold-light: #f59e0b;
-            --sehri-blue: #3b82f6;
-            --iftar-orange: #f97316;
-            --success: #10b981;
-            --error: #ef4444;
-            --shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.2);
-            --radius: 24px;
-            --radius-sm: 16px;
-            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Hind Siliguri', sans-serif; -webkit-tap-highlight-color: transparent; }
+        
         body {
-            font-family: 'Hind Siliguri', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #0f172a 100%);
-            background-attachment: fixed;
-            color: var(--text-primary);
-            line-height: 1.6;
+            background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
+            color: #f8fafc;
             min-height: 100vh;
-            overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
+            padding-bottom: 30px;
         }
-
-        /* Islamic Pattern Overlay */
-        .pattern-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M50 0L61 39H100L69 59L80 100L50 75L20 100L31 59L0 39H39L50 0Z' fill='%23fbbf24' fill-opacity='0.02'/%3E%3C/svg%3E");
-            opacity: 0.4;
-            z-index: -1;
-            pointer-events: none;
-        }
-
-        .container {
-            max-width: 480px;
-            margin: 0 auto;
-            padding: 16px;
-            padding-bottom: 100px;
-            position: relative;
-            z-index: 1;
-        }
-
-        /* Header */
+        
+        .container { max-width: 480px; margin: 0 auto; padding: 16px; }
+        
         .header {
             text-align: center;
-            padding: 20px 0;
-            margin-bottom: 16px;
+            padding: 30px 0 20px;
         }
-
-        .brand {
+        
+        .logo {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            border-radius: 50%;
             display: inline-flex;
             align-items: center;
-            gap: 12px;
-            margin-bottom: 8px;
-        }
-
-        .brand-icon {
-            width: 48px;
-            height: 48px;
-            background: linear-gradient(135deg, var(--accent-gold) 0%, var(--accent-gold-light) 100%);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
             justify-content: center;
-            font-size: 24px;
-            box-shadow: 0 4px 20px rgba(251, 191, 36, 0.3);
+            font-size: 35px;
+            margin-bottom: 15px;
+            box-shadow: 0 8px 32px rgba(251, 191, 36, 0.3);
             animation: float 3s ease-in-out infinite;
         }
-
+        
         @keyframes float {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-4px); }
+            50% { transform: translateY(-5px); }
         }
-
-        .brand h1 {
-            font-size: 1.5rem;
-            font-weight: 700;
-            background: linear-gradient(to right, var(--text-primary), var(--accent-gold));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            letter-spacing: -0.5px;
-        }
-
-        .brand-subtitle {
-            font-size: 0.875rem;
-            color: var(--text-secondary);
-            font-weight: 400;
-        }
+        
+        h1 { font-size: 2rem; background: linear-gradient(to right, #f8fafc, #fbbf24); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 5px; }
+        .subtitle { color: #94a3b8; font-size: 1rem; }
 
         /* Location Selector */
         .location-card {
-            background: var(--bg-glass);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid var(--border-glass);
-            border-radius: var(--radius);
-            padding: 16px;
-            margin-bottom: 20px;
-            box-shadow: var(--shadow);
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 20px;
+            margin: 20px 0;
+            position: relative;
         }
-
+        
         .location-label {
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--accent-gold);
-            margin-bottom: 8px;
+            font-size: 0.85rem;
+            color: #fbbf24;
+            margin-bottom: 10px;
             font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .search-box {
-            width: 100%;
-            padding: 14px 16px;
-            border: 1px solid var(--border-glass);
-            border-radius: var(--radius-sm);
-            background: rgba(0, 0, 0, 0.2);
-            color: var(--text-primary);
-            font-size: 1rem;
-            font-family: inherit;
-            cursor: pointer;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .search-box:focus {
-            outline: none;
-            border-color: var(--accent-gold);
-            background: rgba(0, 0, 0, 0.3);
-        }
-
-        .dropdown-arrow {
-            transition: transform 0.3s;
-            color: var(--text-secondary);
-        }
-
-        .dropdown-arrow.open {
-            transform: rotate(180deg);
-        }
-
-        .dropdown {
-            position: absolute;
-            top: calc(100% + 8px);
-            left: 0;
-            right: 0;
-            max-height: 320px;
-            overflow-y: auto;
-            background: rgba(15, 23, 42, 0.98);
-            backdrop-filter: blur(20px);
-            border: 1px solid var(--border-glass);
-            border-radius: var(--radius-sm);
-            box-shadow: var(--shadow);
-            display: none;
-            z-index: 1000;
-            margin-top: 8px;
-        }
-
-        .dropdown.open {
-            display: block;
-            animation: slideDown 0.2s ease;
-        }
-
-        @keyframes slideDown {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .dropdown-search {
-            padding: 12px;
-            border-bottom: 1px solid var(--border-glass);
-            position: sticky;
-            top: 0;
-            background: rgba(15, 23, 42, 0.98);
-            z-index: 10;
-        }
-
-        .dropdown-search input {
-            width: 100%;
-            padding: 10px 14px;
-            border: 1px solid var(--border-glass);
-            border-radius: 12px;
-            background: rgba(255, 255, 255, 0.05);
-            color: var(--text-primary);
-            font-family: inherit;
-            font-size: 0.95rem;
-        }
-
-        .dropdown-search input:focus {
-            outline: none;
-            border-color: var(--accent-gold);
-        }
-
-        .dropdown-item {
-            padding: 14px 16px;
-            cursor: pointer;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 0.95rem;
-        }
-
-        .dropdown-item:hover, .dropdown-item.selected {
-            background: rgba(251, 191, 36, 0.1);
-            padding-left: 20px;
-        }
-
-        .dropdown-item-icon {
-            opacity: 0.6;
-        }
-
-        /* Countdown Card */
-        .countdown-card {
-            background: linear-gradient(135deg, rgba(251, 191, 36, 0.15) 0%, rgba(245, 158, 11, 0.1) 100%);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(251, 191, 36, 0.3);
-            border-radius: var(--radius);
-            padding: 24px;
-            margin-bottom: 20px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 8px 32px rgba(251, 191, 36, 0.15);
-        }
-
-        .countdown-card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(251, 191, 36, 0.1) 0%, transparent 70%);
-            animation: pulse 4s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); opacity: 0.5; }
-            50% { transform: scale(1.1); opacity: 0.8; }
-        }
-
-        .countdown-label {
-            font-size: 0.875rem;
-            color: var(--accent-gold);
-            margin-bottom: 12px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .countdown-time {
-            font-size: 3rem;
-            font-weight: 700;
-            font-family: 'Courier New', monospace;
-            color: var(--text-primary);
-            margin-bottom: 8px;
-            position: relative;
-            z-index: 1;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
-            letter-spacing: 2px;
-        }
-
-        .countdown-target {
-            font-size: 1rem;
-            color: var(--text-secondary);
-            position: relative;
-            z-index: 1;
-        }
-
-        /* Timing Cards */
-        .section-title {
-            font-size: 0.875rem;
-            color: var(--text-secondary);
-            margin-bottom: 12px;
             display: flex;
             align-items: center;
             gap: 8px;
-            font-weight: 500;
-            padding: 0 4px;
+        }
+        
+        .custom-select {
+            position: relative;
+        }
+        
+        select {
+            width: 100%;
+            padding: 16px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(0, 0, 0, 0.3);
+            color: white;
+            font-size: 1.1rem;
+            cursor: pointer;
+            outline: none;
+            appearance: none;
+            -webkit-appearance: none;
+        }
+        
+        .select-arrow {
+            position: absolute;
+            right: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #fbbf24;
+            pointer-events: none;
+            font-size: 0.8rem;
         }
 
-        .timing-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
+        /* Date Display */
+        .date-card {
+            background: linear-gradient(135deg, rgba(251, 191, 36, 0.1) 0%, rgba(245, 158, 11, 0.05) 100%);
+            border: 1px solid rgba(251, 191, 36, 0.2);
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
             margin-bottom: 20px;
         }
+        
+        .date-bangla { font-size: 1.3rem; color: #fbbf24; font-weight: 700; margin-bottom: 5px; }
+        .date-day { font-size: 1rem; color: #cbd5e1; }
 
+        /* Time Cards */
+        .time-section { margin-bottom: 20px; }
+        .section-title {
+            font-size: 0.9rem;
+            color: #94a3b8;
+            margin-bottom: 12px;
+            padding-left: 5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .time-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        
         .time-card {
-            background: var(--bg-glass);
-            backdrop-filter: blur(20px);
-            border: 1px solid var(--border-glass);
-            border-radius: var(--radius);
-            padding: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 28px 15px;
             text-align: center;
             position: relative;
             overflow: hidden;
-            transition: var(--transition);
-            box-shadow: var(--shadow-sm);
+            transition: all 0.3s;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
-
-        .time-card:active {
-            transform: scale(0.98);
-        }
-
-        .time-card.sehri {
-            border-top: 3px solid var(--sehri-blue);
-        }
-
-        .time-card.iftar {
-            border-top: 3px solid var(--iftar-orange);
-        }
-
-        .time-card-header {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-            margin-bottom: 8px;
-            font-size: 0.875rem;
-            color: var(--text-secondary);
-        }
-
-        .time-card-value {
-            font-size: 1.75rem;
-            font-weight: 700;
-            color: var(--text-primary);
-            margin-bottom: 4px;
-            font-variant-numeric: tabular-nums;
-        }
-
-        .time-card-ampm {
-            font-size: 0.875rem;
-            color: var(--text-secondary);
-            font-weight: 500;
-        }
-
-        .time-card-badge {
+        
+        .time-card:active { transform: scale(0.98); }
+        .time-card.sehri { border-top: 4px solid #3b82f6; background: linear-gradient(180deg, rgba(59, 130, 246, 0.1) 0%, transparent 100%); }
+        .time-card.iftar { border-top: 4px solid #f97316; background: linear-gradient(180deg, rgba(249, 115, 22, 0.1) 0%, transparent 100%); }
+        
+        .time-icon { font-size: 2.2rem; margin-bottom: 10px; display: block; }
+        .time-label { font-size: 0.9rem; color: #94a3b8; margin-bottom: 8px; font-weight: 500; }
+        .time-value { font-size: 2.2rem; font-weight: 700; color: white; font-family: 'Courier New', monospace; letter-spacing: 1px; }
+        .time-ampm { font-size: 0.85rem; color: #64748b; margin-top: 5px; font-weight: 600; }
+        
+        .badge {
             position: absolute;
-            top: 8px;
-            right: 8px;
+            top: 10px;
+            right: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 4px 10px;
+            border-radius: 20px;
             font-size: 0.7rem;
-            padding: 2px 8px;
-            border-radius: 12px;
-            background: rgba(255,255,255,0.1);
-            color: var(--text-secondary);
+            color: #cbd5e1;
         }
 
         /* Tomorrow Section */
         .tomorrow-card {
             background: rgba(255, 255, 255, 0.03);
-            border: 1px solid var(--border-glass);
-            border-radius: var(--radius);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
             padding: 20px;
             margin-bottom: 20px;
         }
-
+        
         .tomorrow-header {
             display: flex;
-            align-items: center;
             justify-content: space-between;
-            margin-bottom: 16px;
-        }
-
-        .tomorrow-title {
-            font-size: 1rem;
-            color: var(--text-secondary);
-            display: flex;
             align-items: center;
-            gap: 8px;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
-
-        .tomorrow-date {
-            font-size: 0.8rem;
-            color: var(--text-secondary);
-            opacity: 0.8;
-        }
-
+        
+        .tomorrow-title { color: #94a3b8; font-size: 0.95rem; display: flex; align-items: center; gap: 8px; }
+        .tomorrow-date { color: #64748b; font-size: 0.85rem; }
+        
         .tomorrow-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 12px;
         }
-
-        .mini-time {
-            background: var(--bg-glass);
-            padding: 12px;
-            border-radius: var(--radius-sm);
+        
+        .mini-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 15px;
+            border-radius: 12px;
             text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.05);
         }
-
-        .mini-label {
-            font-size: 0.75rem;
-            color: var(--text-secondary);
-            margin-bottom: 4px;
-        }
-
-        .mini-value {
-            font-size: 1.125rem;
-            font-weight: 600;
-            color: var(--text-primary);
-            font-variant-numeric: tabular-nums;
-        }
+        
+        .mini-label { font-size: 0.8rem; color: #64748b; margin-bottom: 6px; }
+        .mini-value { font-size: 1.3rem; font-weight: 700; color: #f8fafc; font-family: 'Courier New', monospace; }
 
         /* Prayer Table */
         .prayer-table {
-            background: var(--bg-glass);
-            backdrop-filter: blur(20px);
-            border: 1px solid var(--border-glass);
-            border-radius: var(--radius);
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
             overflow: hidden;
-            margin-bottom: 20px;
-            box-shadow: var(--shadow-sm);
         }
-
+        
         .table-header {
             background: rgba(251, 191, 36, 0.1);
-            padding: 16px 20px;
-            border-bottom: 1px solid var(--border-glass);
-            font-weight: 600;
-            color: var(--accent-gold);
+            padding: 18px;
+            font-weight: 700;
+            color: #fbbf24;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             display: flex;
             align-items: center;
             gap: 10px;
         }
-
+        
         .prayer-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 16px 20px;
+            padding: 16px 18px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-            transition: var(--transition);
+            transition: background 0.2s;
         }
-
-        .prayer-row:last-child {
-            border-bottom: none;
-        }
-
-        .prayer-row:hover {
-            background: rgba(255, 255, 255, 0.03);
-        }
-
-        .prayer-name {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-weight: 500;
-        }
-
-        .prayer-icon {
-            width: 36px;
-            height: 36px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.1rem;
-        }
-
-        .prayer-time {
-            font-weight: 600;
-            color: var(--accent-gold);
-            font-variant-numeric: tabular-nums;
-            font-size: 1.1rem;
-        }
-
-        /* Actions */
-        .action-bar {
-            display: flex;
-            gap: 12px;
-            margin-bottom: 20px;
-        }
-
-        .btn {
-            flex: 1;
-            padding: 14px;
-            border: 1px solid var(--border-glass);
-            border-radius: var(--radius-sm);
-            background: var(--bg-glass);
-            color: var(--text-primary);
-            font-family: inherit;
-            font-size: 0.95rem;
-            font-weight: 500;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            transition: var(--transition);
-            backdrop-filter: blur(10px);
-        }
-
-        .btn:hover {
-            background: rgba(255, 255, 255, 0.1);
-            transform: translateY(-2px);
-        }
-
-        .btn:active {
-            transform: translateY(0);
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, var(--accent-gold) 0%, var(--accent-gold-light) 100%);
-            color: #0f172a;
-            border: none;
-            font-weight: 600;
-        }
-
-        .btn-primary:hover {
-            box-shadow: 0 4px 20px rgba(251, 191, 36, 0.3);
-        }
-
-        /* Loading & Error */
-        .loading-container {
-            text-align: center;
-            padding: 60px 20px;
-        }
-
-        .spinner {
-            width: 48px;
-            height: 48px;
-            border: 3px solid rgba(251, 191, 36, 0.3);
-            border-top-color: var(--accent-gold);
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-            margin: 0 auto 20px;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        .error-container {
-            background: rgba(239, 68, 68, 0.1);
-            border: 1px solid rgba(239, 68, 68, 0.3);
-            border-radius: var(--radius-sm);
-            padding: 20px;
-            text-align: center;
-            margin-bottom: 20px;
-            display: none;
-        }
-
-        .error-container.show {
-            display: block;
-            animation: shake 0.5s;
-        }
-
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-10px); }
-            75% { transform: translateX(10px); }
-        }
-
-        .retry-btn {
-            margin-top: 12px;
-            padding: 10px 24px;
-            background: rgba(239, 68, 68, 0.2);
-            border: 1px solid rgba(239, 68, 68, 0.4);
-            color: #fca5a5;
+        
+        .prayer-row:last-child { border-bottom: none; }
+        .prayer-row:hover { background: rgba(255, 255, 255, 0.03); }
+        
+        .prayer-info { display: flex; align-items: center; gap: 12px; }
+        .prayer-icon { font-size: 1.4rem; width: 30px; text-align: center; }
+        .prayer-name { font-weight: 500; color: #e2e8f0; }
+        .prayer-time { 
+            font-weight: 700; 
+            color: #fbbf24; 
+            font-family: 'Courier New', monospace;
+            font-size: 1.15rem;
+            background: rgba(251, 191, 36, 0.1);
+            padding: 6px 12px;
             border-radius: 8px;
-            cursor: pointer;
-            font-family: inherit;
-            font-weight: 500;
         }
 
-        /* Offline Badge */
-        .offline-badge {
+        /* Status & Loading */
+        .status-bar {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
-            background: var(--error);
-            color: white;
+            padding: 10px;
             text-align: center;
-            padding: 8px;
-            font-size: 0.875rem;
-            font-weight: 500;
+            font-size: 0.85rem;
+            font-weight: 600;
             transform: translateY(-100%);
             transition: transform 0.3s;
             z-index: 9999;
         }
+        
+        .status-bar.show { transform: translateY(0); }
+        .status-bar.error { background: #ef4444; color: white; }
+        .status-bar.success { background: #10b981; color: white; }
+        .status-bar.offline { background: #f59e0b; color: white; }
 
-        .offline-badge.show {
-            transform: translateY(0);
+        .loading {
+            text-align: center;
+            padding: 50px 20px;
         }
+        
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid rgba(251, 191, 36, 0.2);
+            border-top-color: #fbbf24;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin: 0 auto 20px;
+        }
+        
+        @keyframes spin { to { transform: rotate(360deg); } }
+        
+        .loading-text { color: #94a3b8; font-size: 1rem; }
+
+        .hidden { display: none !important; }
 
         /* Footer */
         .footer {
             text-align: center;
-            padding: 20px;
-            color: var(--text-secondary);
-            font-size: 0.8rem;
-            opacity: 0.7;
-        }
-
-        /* Install Prompt */
-        .install-prompt {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%) translateY(200%);
-            background: var(--bg-glass);
-            backdrop-filter: blur(20px);
-            border: 1px solid var(--border-glass);
-            border-radius: var(--radius);
-            padding: 16px 24px;
-            box-shadow: var(--shadow);
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            z-index: 1000;
-            transition: transform 0.3s;
-            max-width: 90%;
-            width: 400px;
-        }
-
-        .install-prompt.show {
-            transform: translateX(-50%) translateY(0);
-        }
-
-        .install-text {
-            flex: 1;
-        }
-
-        .install-title {
-            font-weight: 600;
-            margin-bottom: 4px;
-        }
-
-        .install-subtitle {
-            font-size: 0.875rem;
-            color: var(--text-secondary);
-        }
-
-        .install-btn {
-            padding: 10px 20px;
-            background: var(--accent-gold);
-            color: #0f172a;
-            border: none;
-            border-radius: 12px;
-            font-weight: 600;
-            cursor: pointer;
-            font-family: inherit;
-        }
-
-        .install-close {
-            background: none;
-            border: none;
-            color: var(--text-secondary);
-            font-size: 1.5rem;
-            cursor: pointer;
-            padding: 0;
-            width: 32px;
-            height: 32px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        /* Scrollbar */
-        ::-webkit-scrollbar {
-            width: 6px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 3px;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 3px;
+            padding: 30px 20px;
+            color: #64748b;
+            font-size: 0.85rem;
+            margin-top: 20px;
         }
 
         /* Responsive */
-        @media (max-width: 360px) {
-            .countdown-time {
-                font-size: 2.5rem;
-            }
-            .time-card-value {
-                font-size: 1.5rem;
-            }
-            .timing-grid {
-                gap: 8px;
-            }
+        @media (max-width: 380px) {
+            .time-value { font-size: 1.8rem; }
+            .time-card { padding: 24px 10px; }
+            h1 { font-size: 1.7rem; }
         }
 
-        /* Utilities */
-        .hidden {
-            display: none !important;
-        }
-
-        .skeleton {
-            background: linear-gradient(90deg, rgba(255,255,255,0.05) 25%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.05) 75%);
-            background-size: 200% 100%;
-            animation: loading 1.5s infinite;
-            border-radius: 8px;
-        }
-
-        @keyframes loading {
-            0% { background-position: 200% 0; }
-            100% { background-position: -200% 0; }
-        }
-
-        /* Reduce motion */
-        @media (prefers-reduced-motion: reduce) {
-            * {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.01ms !important;
-            }
-        }
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); }
+        ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 3px; }
     </style>
 </head>
 <body>
-    <div class="pattern-overlay"></div>
-    <div class="offline-badge" id="offlineBadge">আপনি অফলাইনে আছেন</div>
-    
+
+    <div class="status-bar" id="statusBar"></div>
+
     <div class="container">
-        <!-- Header -->
-        <header class="header">
-            <div class="brand">
-                <div class="brand-icon">🌙</div>
-                <div>
-                    <h1>রমজান টাইম</h1>
-                    <div class="brand-subtitle">বাংলাদেশ</div>
-                </div>
-            </div>
-        </header>
-
-        <!-- Error Container -->
-        <div id="errorContainer" class="error-container">
-            <div style="font-size: 2rem; margin-bottom: 8px;">⚠️</div>
-            <div style="font-weight: 600; margin-bottom: 4px;">ডাটা লোড করতে সমস্যা হয়েছে</div>
-            <div style="font-size: 0.875rem; opacity: 0.8;">আবার চেষ্টা করুন</div>
-            <button class="retry-btn" onclick="app.loadData()">রিট্রাই</button>
+        <div class="header">
+            <div class="logo">🌙</div>
+            <h1>রমজান টাইম</h1>
+            <div class="subtitle">বাংলাদেশের সেহরি ও ইফতার সময়সূচি</div>
         </div>
 
-        <!-- Location Selector -->
-        <div class="location-card" style="position: relative;">
-            <div class="location-label">
-                <span>📍</span>
-                <span>আপনার অবস্থান</span>
-            </div>
-            <div class="search-box" onclick="app.toggleDropdown()">
-                <span id="selectedLocation">ঢাকা</span>
-                <span class="dropdown-arrow" id="dropdownArrow">▼</span>
-            </div>
-            
-            <div class="dropdown" id="dropdown">
-                <div class="dropdown-search">
-                    <input type="text" placeholder="জেলা খুঁজুন..." id="searchInput" oninput="app.filterLocations(this.value)">
-                </div>
-                <div id="dropdownList"></div>
+        <div class="location-card">
+            <div class="location-label">📍 অবস্থান নির্বাচন করুন</div>
+            <div class="custom-select">
+                <select id="locationSelect" onchange="handleLocationChange(this.value)">
+                    <option value="ঢাকা">ঢাকা</option>
+                    <option value="চট্টগ্রাম">চট্টগ্রাম</option>
+                    <option value="খুলনা">খুলনা</option>
+                    <option value="রাজশাহী">রাজশাহী</option>
+                    <option value="বরিশাল">বরিশাল</option>
+                    <option value="সিলেট">সিলেট</option>
+                    <option value="রংপুর">রংপুর</option>
+                    <option value="ময়মনসিংহ">ময়মনসিংহ</option>
+                    <option value="কুমিল্লা">কুমিল্লা</option>
+                    <option value="ফেনী">ফেনী</option>
+                    <option value="নোয়াখালী">নোয়াখালী</option>
+                    <option value="চাঁদপুর">চাঁদপুর</option>
+                    <option value="কক্সবাজার">কক্সবাজার</option>
+                    <option value="খাগড়াছড়ি">খাগড়াছড়ি</option>
+                    <option value="বান্দরবান">বান্দরবান</option>
+                    <option value="রাঙ্গামাটি">রাঙ্গামাটি</option>
+                    <option value="সিলেট">সিলেট</option>
+                    <option value="হবিগঞ্জ">হবিগঞ্জ</option>
+                    <option value="মৌলভীবাজার">মৌলভীবাজার</option>
+                    <option value="সুনামগঞ্জ">সুনামগঞ্জ</option>
+                    <option value="যশোর">যশোর</option>
+                    <option value="ঝিনাইদহ">ঝিনাইদহ</option>
+                    <option value="কুষ্টিয়া">কুষ্টিয়া</option>
+                    <option value="মাগুরা">মাগুরা</option>
+                    <option value="নড়াইল">নড়াইল</option>
+                    <option value="সাতক্ষীরা">সাতক্ষীরা</option>
+                    <option value="বাগেরহাট">বাগেরহাট</option>
+                    <option value="চুয়াডাঙ্গা">চুয়াডাঙ্গা</option>
+                    <option value="মেহেরপুর">মেহেরপুর</option>
+                    <option value="বগুড়া">বগুড়া</option>
+                    <option value="জয়পুরহাট">জয়পুরহাট</option>
+                    <option value="নওগাঁ">নওগাঁ</option>
+                    <option value="নাটোর">নাটোর</option>
+                    <option value="পাবনা">পাবনা</option>
+                    <option value="সিরাজগঞ্জ">সিরাজগঞ্জ</option>
+                    <option value="চাঁপাইনবাবগঞ্জ">চাঁপাইনবাবগঞ্জ</option>
+                    <option value="দিনাজপুর">দিনাজপুর</option>
+                    <option value="গাইবান্ধা">গাইবান্ধা</option>
+                    <option value="কুড়িগ্রাম">কুড়িগ্রাম</option>
+                    <option value="লালমনিরহাট">লালমনিরহাট</option>
+                    <option value="নীলফামারী">নীলফামারী</option>
+                    <option value="পঞ্চগড়">পঞ্চগড়</option>
+                    <option value="ঠাকুরগাঁও">ঠাকুরগাঁও</option>
+                    <option value="রাজশাহী">রাজশাহী</option>
+                    <option value="নরসিংদী">নরসিংদী</option>
+                    <option value="গাজীপুর">গাজীপুর</option>
+                    <option value="কিশোরগঞ্জ">কিশোরগঞ্জ</option>
+                    <option value="মানিকগঞ্জ">মানিকগঞ্জ</option>
+                    <option value="মুন্সিগঞ্জ">মুন্সিগঞ্জ</option>
+                    <option value="নারায়ণগঞ্জ">নারায়ণগঞ্জ</option>
+                    <option value="টাঙ্গাইল">টাঙ্গাইল</option>
+                    <option value="ফরিদপুর">ফরিদপুর</option>
+                    <option value="গোপালগঞ্জ">গোপালগঞ্জ</option>
+                    <option value="মাদারীপুর">মাদারীপুর</option>
+                    <option value="রাজবাড়ী">রাজবাড়ী</option>
+                    <option value="শরীয়তপুর">শরীয়তপুর</option>
+                    <option value="জামালপুর">জামালপুর</option>
+                    <option value="শেরপুর">শেরপুর</option>
+                    <option value="নেত্রকোনা">নেত্রকোনা</option>
+                </select>
+                <span class="select-arrow">▼</span>
             </div>
         </div>
 
-        <!-- Main Content -->
-        <div id="mainContent">
-            <!-- Countdown -->
-            <div class="countdown-card">
-                <div class="countdown-label" id="countdownLabel">ইফতারের সময় বাকি</div>
-                <div class="countdown-time" id="countdownTime">--:--:--</div>
-                <div class="countdown-target" id="countdownTarget">আজ ইফতার: --:--</div>
+        <div id="loadingState" class="loading hidden">
+            <div class="spinner"></div>
+            <div class="loading-text">ডাটা লোড হচ্ছে...</div>
+        </div>
+
+        <div id="content">
+            <div class="date-card">
+                <div class="date-bangla" id="todayDate">--</div>
+                <div class="date-day" id="todayDay">--</div>
             </div>
 
-            <!-- Today's Times -->
-            <div class="section-title">
-                <span>📅</span>
-                <span>আজকের সময়সূচি</span>
-            </div>
-            
-            <div class="timing-grid">
-                <div class="time-card sehri">
-                    <div class="time-card-badge">আজ</div>
-                    <div class="time-card-header">
-                        <span>🌙</span>
-                        <span>সেহরির শেষ</span>
+            <div class="time-section">
+                <div class="section-title">📅 আজকের সময়সূচি</div>
+                <div class="time-grid">
+                    <div class="time-card sehri">
+                        <span class="badge" id="sehriBadge">আজ</span>
+                        <span class="time-icon">🌙</span>
+                        <div class="time-label">সেহরির শেষ সময়</div>
+                        <div class="time-value" id="sehriTime">--:--</div>
+                        <div class="time-ampm">পূর্বাহ্ণ</div>
                     </div>
-                    <div class="time-card-value" id="todaySehri">--:--</div>
-                    <div class="time-card-ampm">পূর্বাহ্ণ</div>
-                </div>
-                
-                <div class="time-card iftar">
-                    <div class="time-card-badge">আজ</div>
-                    <div class="time-card-header">
-                        <span>🌅</span>
-                        <span>ইফতার</span>
+                    
+                    <div class="time-card iftar">
+                        <span class="badge" id="iftarBadge">আজ</span>
+                        <span class="time-icon">🌅</span>
+                        <div class="time-label">ইফতারের সময়</div>
+                        <div class="time-value" id="iftarTime">--:--</div>
+                        <div class="time-ampm">অপরাহ্ণ</div>
                     </div>
-                    <div class="time-card-value" id="todayIftar">--:--</div>
-                    <div class="time-card-ampm">অপরাহ্ণ</div>
                 </div>
             </div>
 
-            <!-- Tomorrow -->
             <div class="tomorrow-card">
                 <div class="tomorrow-header">
-                    <div class="tomorrow-title">
-                        <span>📆</span>
-                        <span>আগামীকাল</span>
-                    </div>
+                    <div class="tomorrow-title">📆 আগামীকাল</div>
                     <div class="tomorrow-date" id="tomorrowDate">--</div>
                 </div>
                 <div class="tomorrow-grid">
-                    <div class="mini-time">
+                    <div class="mini-card">
                         <div class="mini-label">সেহরির শেষ</div>
                         <div class="mini-value" id="tomorrowSehri">--:--</div>
                     </div>
-                    <div class="mini-time">
+                    <div class="mini-card">
                         <div class="mini-label">ইফতার</div>
                         <div class="mini-value" id="tomorrowIftar">--:--</div>
                     </div>
                 </div>
             </div>
 
-            <!-- Prayer Times -->
             <div class="prayer-table">
-                <div class="table-header">
-                    <span>🕌</span>
-                    <span>নামাজের সময়সূচি</span>
-                </div>
+                <div class="table-header">🕌 অন্যান্য নামাজের সময়</div>
                 
                 <div class="prayer-row">
-                    <div class="prayer-name">
-                        <div class="prayer-icon">🌄</div>
-                        <span>ফজর</span>
+                    <div class="prayer-info">
+                        <span class="prayer-icon">🌄</span>
+                        <span class="prayer-name">ফজর</span>
                     </div>
-                    <div class="prayer-time" id="timeFajr">--:--</div>
+                    <div class="prayer-time" id="fajrTime">--:--</div>
                 </div>
-                
-                <div class="prayer-row">
-                    <div class="prayer-name">
-                        <div class="prayer-icon">☀️</div>
-                        <span>সূর্যোদয়</span>
-                    </div>
-                    <div class="prayer-time" id="timeSunrise">--:--</div>
-                </div>
-                
-                <div class="prayer-row">
-                    <div class="prayer-name">
-                        <div class="prayer-icon">🌤️</div>
-                        <span>যোহর</span>
-                    </div>
-                    <div class="prayer-time" id="timeZohr">--:--</div>
-                </div>
-                
-                <div class="prayer-row">
-                    <div class="prayer-name">
-                        <div class="prayer-icon">🌥️</div>
-                        <span>আসর</span>
-                    </div>
-                    <div class="prayer-time" id="timeAsr">--:--</div>
-                </div>
-                
-                <div class="prayer-row">
-                    <div class="prayer-name">
-                        <div class="prayer-icon">🌇</div>
-                        <span>মাগরিব</span>
-                    </div>
-                    <div class="prayer-time" id="timeMaghrib">--:--</div>
-                </div>
-                
-                <div class="prayer-row">
-                    <div class="prayer-name">
-                        <div class="prayer-icon">🌙</div>
-                        <span>এশা</span>
-                    </div>
-                    <div class="prayer-time" id="timeIsha">--:--</div>
-                </div>
-            </div>
 
-            <!-- Actions -->
-            <div class="action-bar">
-                <button class="btn" onclick="app.share()">
-                    <span>📤</span>
-                    <span>শেয়ার</span>
-                </button>
-                <button class="btn btn-primary" onclick="app.refresh()">
-                    <span>🔄</span>
-                    <span>রিফ্রেশ</span>
-                </button>
+                <div class="prayer-row">
+                    <div class="prayer-info">
+                        <span class="prayer-icon">☀️</span>
+                        <span class="prayer-name">সূর্যোদয়</span>
+                    </div>
+                    <div class="prayer-time" id="sunriseTime">--:--</div>
+                </div>
+
+                <div class="prayer-row">
+                    <div class="prayer-info">
+                        <span class="prayer-icon">🌤️</span>
+                        <span class="prayer-name">যোহর</span>
+                    </div>
+                    <div class="prayer-time" id="zohrTime">--:--</div>
+                </div>
+
+                <div class="prayer-row">
+                    <div class="prayer-info">
+                        <span class="prayer-icon">🌥️</span>
+                        <span class="prayer-name">আসর</span>
+                    </div>
+                    <div class="prayer-time" id="asrTime">--:--</div>
+                </div>
+
+                <div class="prayer-row">
+                    <div class="prayer-info">
+                        <span class="prayer-icon">🌇</span>
+                        <span class="prayer-name">মাগরিব</span>
+                    </div>
+                    <div class="prayer-time" id="maghribTime">--:--</div>
+                </div>
+
+                <div class="prayer-row">
+                    <div class="prayer-info">
+                        <span class="prayer-icon">🌙</span>
+                        <span class="prayer-name">এশা</span>
+                    </div>
+                    <div class="prayer-time" id="ishaTime">--:--</div>
+                </div>
             </div>
         </div>
 
-        <!-- Loading State -->
-        <div id="loadingState" class="loading-container hidden">
-            <div class="spinner"></div>
-            <div style="color: var(--text-secondary);">লোড হচ্ছে...</div>
+        <div class="footer">
+            <div>তথ্যসূত্র: xlahr.pro.bd</div>
+            <div style="margin-top: 8px; font-size: 0.8rem;">© ২০২৬ রমজান টাইম বাংলাদেশ</div>
         </div>
-
-        <!-- Footer -->
-        <footer class="footer">
-            <p>তথ্যসূত্র: xlahr.pro.bd</p>
-            <p style="margin-top: 4px;">© ২০২৬ রমজান টাইম</p>
-        </footer>
-    </div>
-
-    <!-- Install Prompt -->
-    <div class="install-prompt" id="installPrompt">
-        <div class="install-text">
-            <div class="install-title">অ্যাপ ইনস্টল করুন</div>
-            <div class="install-subtitle">হোম স্ক্রিনে যোগ করুন</div>
-        </div>
-        <button class="install-btn" onclick="app.install()">ইনস্টল</button>
-        <button class="install-close" onclick="app.dismissInstall()">×</button>
     </div>
 
     <script>
-        // Application Logic
-        const app = {
-            data: null,
-            currentLocation: localStorage.getItem('ramadan_location') || 'dhaka',
-            countdownInterval: null,
-            deferredPrompt: null,
-            
-            locations: [
-                {name: "ঢাকা", value: "dhaka"},
-                {name: "চট্টগ্রাম", value: "chattogram"},
-                {name: "খুলনা", value: "khulna"},
-                {name: "রাজশাহী", value: "rajshahi"},
-                {name: "বরিশাল", value: "barishal"},
-                {name: "সিলেট", value: "sylhet"},
-                {name: "রংপুর", value: "rangpur"},
-                {name: "ময়মনসিংহ", value: "mymensingh"},
-                {name: "কুমিল্লা", value: "comilla"},
-                {name: "ফেনী", value: "feni"},
-                {name: "ব্রাহ্মণবাড়িয়া", value: "brahmanbaria"},
-                {name: "নোয়াখালী", value: "noakhali"},
-                {name: "চাঁদপুর", value: "chandpur"},
-                {name: "লক্ষ্মীপুর", value: "lakshmipur"},
-                {name: "খাগড়াছড়ি", value: "khagrachari"},
-                {name: "রাঙ্গামাটি", value: "rangamati"},
-                {name: "বান্দরবান", value: "bandarban"},
-                {name: "কক্সবাজার", value: "coxs-bazar"},
-                {name: "নরসিংদী", value: "narsingdi"},
-                {name: "গাজীপুর", value: "gazipur"},
-                {name: "কিশোরগঞ্জ", value: "kishoreganj"},
-                {name: "মানিকগঞ্জ", value: "manikganj"},
-                {name: "মুন্সিগঞ্জ", value: "munshiganj"},
-                {name: "নারায়ণগঞ্জ", value: "narayanganj"},
-                {name: "ফরিদপুর", value: "faridpur"},
-                {name: "গোপালগঞ্জ", value: "gopalganj"},
-                {name: "মাদারীপুর", value: "madaripur"},
-                {name: "রাজবাড়ী", value: "rajbari"},
-                {name: "শরীয়তপুর", value: "shariatpur"},
-                {name: "টাঙ্গাইল", value: "tangail"},
-                {name: "জামালপুর", value: "jamalpur"},
-                {name: "শেরপুর", value: "sherpur"},
-                {name: "নেত্রকোনা", value: "netrokona"},
-                {name: "বগুড়া", value: "bogra"},
-                {name: "চাঁপাইনবাবগঞ্জ", value: "chapainawabganj"},
-                {name: "জয়পুরহাট", value: "joypurhat"},
-                {name: "নওগাঁ", value: "naogaon"},
-                {name: "নাটোর", value: "natore"},
-                {name: "পাবনা", value: "pabna"},
-                {name: "সিরাজগঞ্জ", value: "sirajganj"},
-                {name: "দিনাজপুর", value: "dinajpur"},
-                {name: "গাইবান্ধা", value: "gaibandha"},
-                {name: "কুড়িগ্রাম", value: "kurigram"},
-                {name: "লালমনিরহাট", value: "lalmonirhat"},
-                {name: "নীলফামারী", value: "nilphamari"},
-                {name: "পঞ্চগড়", value: "panchagarh"},
-                {name: "ঠাকুরগাঁও", value: "thakurgaon"},
-                {name: "বাগেরহাট", value: "bagerhat"},
-                {name: "চুয়াডাঙ্গা", value: "chuadanga"},
-                {name: "যশোর", value: "jessore"},
-                {name: "ঝিনাইদহ", value: "jhenaidah"},
-                {name: "কুষ্টিয়া", value: "kushtia"},
-                {name: "মাগুরা", value: "magura"},
-                {name: "মেহেরপুর", value: "meherpur"},
-                {name: "নড়াইল", value: "narail"},
-                {name: "সাতক্ষীরা", value: "satkhira"},
-                {name: "হবিগঞ্জ", value: "habiganj"},
-                {name: "মৌলভীবাজার", value: "maulvibazar"},
-                {name: "সুনামগঞ্জ", value: "sunamganj"},
-                {name: "ঝালকাঠি", value: "jhalokati"},
-                {name: "পটুয়াখালী", value: "patuakhali"},
-                {name: "পিরোজপুর", value: "pirojpur"},
-                {name: "ভোলা", value: "bhola"},
-                {name: "বরগুনা", value: "barguna"}
-            ],
-
-            init() {
-                this.renderDropdown();
-                this.setupEventListeners();
-                this.setupServiceWorker();
-                this.loadData();
-                this.updateOnlineStatus();
-                
-                // Check for install prompt
-                window.addEventListener('beforeinstallprompt', (e) => {
-                    e.preventDefault();
-                    this.deferredPrompt = e;
-                    setTimeout(() => {
-                        document.getElementById('installPrompt').classList.add('show');
-                    }, 3000);
-                });
-            },
-
-            setupEventListeners() {
-                // Close dropdown when clicking outside
-                document.addEventListener('click', (e) => {
-                    if (!e.target.closest('.location-card')) {
-                        this.closeDropdown();
-                    }
-                });
-
-                // Network status
-                window.addEventListener('online', () => this.updateOnlineStatus());
-                window.addEventListener('offline', () => this.updateOnlineStatus());
-            },
-
-            updateOnlineStatus() {
-                const badge = document.getElementById('offlineBadge');
-                if (navigator.onLine) {
-                    badge.classList.remove('show');
-                } else {
-                    badge.classList.add('show');
-                }
-            },
-
-            setupServiceWorker() {
-                if ('serviceWorker' in navigator) {
-                    navigator.serviceWorker.register('service-worker.js')
-                        .then(reg => console.log('Service Worker registered'))
-                        .catch(err => console.log('SW registration failed'));
-                }
-            },
-
-            toggleDropdown() {
-                const dropdown = document.getElementById('dropdown');
-                const arrow = document.getElementById('dropdownArrow');
-                dropdown.classList.toggle('open');
-                arrow.classList.toggle('open');
-                
-                if (dropdown.classList.contains('open')) {
-                    document.getElementById('searchInput').focus();
-                }
-            },
-
-            closeDropdown() {
-                document.getElementById('dropdown').classList.remove('open');
-                document.getElementById('dropdownArrow').classList.remove('open');
-            },
-
-            renderDropdown(filter = '') {
-                const list = document.getElementById('dropdownList');
-                const filtered = this.locations.filter(l => 
-                    l.name.includes(filter) || l.value.includes(filter.toLowerCase())
-                );
-                
-                list.innerHTML = filtered.map(loc => `
-                    <div class="dropdown-item ${loc.value === this.currentLocation ? 'selected' : ''}" 
-                         onclick="app.selectLocation('${loc.value}', '${loc.name}')">
-                        <span class="dropdown-item-icon">📍</span>
-                        <span>${loc.name}</span>
-                    </div>
-                `).join('');
-            },
-
-            filterLocations(query) {
-                this.renderDropdown(query);
-            },
-
-            selectLocation(value, name) {
-                this.currentLocation = value;
-                localStorage.setItem('ramadan_location', value);
-                document.getElementById('selectedLocation').textContent = name;
-                this.closeDropdown();
-                this.loadData();
-            },
-
-            async loadData() {
-                this.showLoading();
-                this.hideError();
-
-                try {
-                    const url = `https://xlahr.pro.bd/rmd.php?location=${this.currentLocation}`;
-                    const response = await fetch(url);
-                    
-                    if (!response.ok) throw new Error('Network response was not ok');
-                    
-                    this.data = await response.json();
-                    this.updateUI();
-                    this.startCountdown();
-                    this.hideLoading();
-                    
-                    // Cache for offline use
-                    localStorage.setItem('cached_data_' + this.currentLocation, JSON.stringify(this.data));
-                    localStorage.setItem('cache_time', Date.now());
-                } catch (error) {
-                    console.error('Error:', error);
-                    // Try to load cached data
-                    const cached = localStorage.getItem('cached_data_' + this.currentLocation);
-                    if (cached) {
-                        this.data = JSON.parse(cached);
-                        this.updateUI();
-                        this.startCountdown();
-                        this.hideLoading();
-                        this.showOfflineNotice();
-                    } else {
-                        this.showError();
-                        this.hideLoading();
-                    }
-                }
-            },
-
-            updateUI() {
-                if (!this.data) return;
-
-                // Update selected location display
-                const loc = this.locations.find(l => l.value === this.currentLocation);
-                if (loc) document.getElementById('selectedLocation').textContent = loc.name;
-
-                // Today's times
-                document.getElementById('todaySehri').textContent = this.formatTime(this.data.today?.sehri_end);
-                document.getElementById('todayIftar').textContent = this.formatTime(this.data.today?.iftar);
-
-                // Tomorrow
-                document.getElementById('tomorrowSehri').textContent = this.formatTime(this.data.tomorrow?.sehri_end);
-                document.getElementById('tomorrowIftar').textContent = this.formatTime(this.data.tomorrow?.iftar);
-                document.getElementById('tomorrowDate').textContent = this.data.tomorrow?.tomorrow_date || '';
-
-                // Prayer times
-                const times = this.data.other_times || {};
-                document.getElementById('timeFajr').textContent = times.fajri || '--:--';
-                document.getElementById('timeSunrise').textContent = times.sunrise || '--:--';
-                document.getElementById('timeZohr').textContent = times.zohr || '--:--';
-                document.getElementById('timeAsr').textContent = times.asr || '--:--';
-                document.getElementById('timeMaghrib').textContent = times.maghrib || '--:--';
-                document.getElementById('timeIsha').textContent = times.isha || '--:--';
-
-                // Update countdown target
-                document.getElementById('countdownTarget').textContent = `আজ ইফতার: ${this.formatTime(this.data.today?.iftar)}`;
-            },
-
-            startCountdown() {
-                if (this.countdownInterval) clearInterval(this.countdownInterval);
-                
-                const update = () => {
-                    const now = new Date();
-                    const iftarTime = this.parseTime(this.data?.today?.iftar);
-                    const sehriTime = this.parseTime(this.data?.today?.sehri_end);
-                    
-                    let target, label;
-                    
-                    // Determine next event
-                    if (now < sehriTime) {
-                        target = sehriTime;
-                        label = 'সেহরির শেষ সময় বাকি';
-                    } else if (now < iftarTime) {
-                        target = iftarTime;
-                        label = 'ইফতারের সময় বাকি';
-                    } else {
-                        // After iftar, show tomorrow sehri
-                        const tomorrow = new Date(now);
-                        tomorrow.setDate(tomorrow.getDate() + 1);
-                        target = this.parseTime(this.data?.tomorrow?.sehri_end, tomorrow);
-                        label = 'আগামী সেহরি বাকি';
-                    }
-                    
-                    const diff = target - now;
-                    
-                    if (diff > 0) {
-                        const hours = Math.floor(diff / (1000 * 60 * 60));
-                        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-                        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-                        
-                        document.getElementById('countdownTime').textContent = 
-                            `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
-                        document.getElementById('countdownLabel').textContent = label;
-                    } else {
-                        document.getElementById('countdownTime').textContent = '00:00:00';
-                    }
-                };
-                
-                update();
-                this.countdownInterval = setInterval(update, 1000);
-            },
-
-            parseTime(timeStr, date = new Date()) {
-                if (!timeStr) return new Date();
-                const [time, period] = timeStr.split(' ');
-                let [hours, minutes] = time.split(':').map(Number);
-                
-                if (period === 'pm' && hours !== 12) hours += 12;
-                if (period === 'am' && hours === 12) hours = 0;
-                
-                const result = new Date(date);
-                result.setHours(hours, minutes, 0);
-                return result;
-            },
-
-            formatTime(timeStr) {
-                if (!timeStr) return '--:--';
-                return timeStr.replace(/\s*(am|pm)/i, '');
-            },
-
-            showLoading() {
-                document.getElementById('loadingState').classList.remove('hidden');
-                document.getElementById('mainContent').style.opacity = '0.3';
-            },
-
-            hideLoading() {
-                document.getElementById('loadingState').classList.add('hidden');
-                document.getElementById('mainContent').style.opacity = '1';
-            },
-
-            showError() {
-                document.getElementById('errorContainer').classList.add('show');
-            },
-
-            hideError() {
-                document.getElementById('errorContainer').classList.remove('show');
-            },
-
-            showOfflineNotice() {
-                const badge = document.getElementById('offlineBadge');
-                badge.textContent = 'অফলাইন মোড - ক্যাশড ডাটা দেখানো হচ্ছে';
-                badge.classList.add('show');
-                setTimeout(() => badge.classList.remove('show'), 3000);
-            },
-
-            refresh() {
-                this.loadData();
-            },
-
-            async share() {
-                const loc = this.locations.find(l => l.value === this.currentLocation)?.name || this.currentLocation;
-                const text = `📅 আজকের রমজান সময়সূচি (${loc})\n🌙 সেহরি: ${this.data?.today?.sehri_end}\n🌅 ইফতার: ${this.data?.today?.iftar}\n\nঅ্যাপটি ডাউনলোড করুন: ${window.location.href}`;
-                
-                if (navigator.share) {
-                    try {
-                        await navigator.share({
-                            title: 'রমজান টাইম',
-                            text: text
-                        });
-                    } catch (err) {
-                        this.copyToClipboard(text);
-                    }
-                } else {
-                    this.copyToClipboard(text);
-                }
-            },
-
-            copyToClipboard(text) {
-                navigator.clipboard.writeText(text).then(() => {
-                    alert('কপি হয়েছে!');
-                });
-            },
-
-            async install() {
-                if (this.deferredPrompt) {
-                    this.deferredPrompt.prompt();
-                    const { outcome } = await this.deferredPrompt.userChoice;
-                    if (outcome === 'accepted') {
-                        document.getElementById('installPrompt').classList.remove('show');
-                    }
-                } else {
-                    // For iOS or manual install
-                    alert('ব্রাউজার মেনু থেকে "Add to Home Screen" বা "Install App" সিলেক্ট করুন');
-                }
-            },
-
-            dismissInstall() {
-                document.getElementById('installPrompt').classList.remove('show');
-                localStorage.setItem('install_dismissed', 'true');
-            }
-        };
+        // State management
+        let currentLocation = localStorage.getItem('ramadan_location') || 'ঢাকা';
+        let cachedData = {};
+        
+        // CORS Proxy list (reliable free proxies)
+        const CORS_PROXIES = [
+            'https://corsproxy.io/?',
+            'https://api.allorigins.win/get?url=',
+            'https://api.codetabs.com/v1/proxy?quest='
+        ];
 
         // Initialize
-        document.addEventListener('DOMContentLoaded', () => app.init());
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('locationSelect').value = currentLocation;
+            fetchRamadanData(currentLocation);
+            
+            // Network status listeners
+            window.addEventListener('online', () => showStatus('✅ অনলাইনে আছেন', 'success'));
+            window.addEventListener('offline', () => showStatus('⚠️ অফলাইন মোড', 'offline'));
+        });
+
+        function handleLocationChange(location) {
+            currentLocation = location;
+            localStorage.setItem('ramadan_location', location);
+            fetchRamadanData(location);
+        }
+
+        async function fetchRamadanData(location) {
+            showLoading(true);
+            hideStatus();
+
+            const apiUrl = `https://xlahr.pro.bd/rmd.php?location=${encodeURIComponent(location)}`;
+            
+            try {
+                let data = null;
+                let usedProxy = false;
+                
+                // Try direct fetch first (might work in some browsers)
+                try {
+                    const directResponse = await fetch(apiUrl, { 
+                        mode: 'cors',
+                        headers: { 'Accept': 'application/json' }
+                    });
+                    if (directResponse.ok) {
+                        data = await directResponse.json();
+                    }
+                } catch (e) {
+                    console.log('Direct fetch failed, trying proxies...');
+                }
+
+                // If direct fails, try proxies
+                if (!data) {
+                    for (let proxy of CORS_PROXIES) {
+                        try {
+                            const proxyUrl = proxy + encodeURIComponent(apiUrl);
+                            const response = await fetch(proxyUrl);
+                            
+                            if (response.ok) {
+                                const result = await response.json();
+                                // Handle different proxy response formats
+                                if (result.contents) {
+                                    // allorigins format
+                                    data = JSON.parse(result.contents);
+                                } else {
+                                    data = result;
+                                }
+                                usedProxy = true;
+                                break;
+                            }
+                        } catch (proxyError) {
+                            console.log(`Proxy failed: ${proxy}`);
+                            continue;
+                        }
+                    }
+                }
+
+                if (data && data.today) {
+                    displayData(data);
+                    // Cache the data
+                    cachedData[location] = data;
+                    localStorage.setItem('cached_data', JSON.stringify(cachedData));
+                    
+                    if (usedProxy) {
+                        showStatus('✅ ডাটা লোড হয়েছে (Proxy)', 'success');
+                    }
+                    setTimeout(hideStatus, 2000);
+                } else {
+                    throw new Error('Invalid data structure');
+                }
+                
+            } catch (error) {
+                console.error('Fetch error:', error);
+                
+                // Try to use cached data
+                const savedCache = localStorage.getItem('cached_data');
+                if (savedCache) {
+                    cachedData = JSON.parse(savedCache);
+                    if (cachedData[location]) {
+                        displayData(cachedData[location]);
+                        showStatus('⚠️ ক্যাশড ডাটা দেখানো হচ্ছে', 'offline');
+                        return;
+                    }
+                }
+                
+                // If no cache, show error
+                showStatus('❌ ডাটা লোড করতে ব্যর্থ', 'error');
+            } finally {
+                showLoading(false);
+            }
+        }
+
+        function displayData(data) {
+            // Date info
+            const dateInfo = data.date_info || {};
+            document.getElementById('todayDate').textContent = dateInfo.today_date || data.today?.today_date || '';
+            document.getElementById('todayDay').textContent = dateInfo.today_day || '';
+            
+            // Tomorrow date
+            document.getElementById('tomorrowDate').textContent = data.tomorrow?.tomorrow_date || '';
+
+            // Today's times
+            const today = data.today || {};
+            document.getElementById('sehriTime').textContent = formatTime(today.sehri_end);
+            document.getElementById('iftarTime').textContent = formatTime(today.iftar);
+
+            // Tomorrow's times
+            const tomorrow = data.tomorrow || {};
+            document.getElementById('tomorrowSehri').textContent = formatTime(tomorrow.sehri_end);
+            document.getElementById('tomorrowIftar').textContent = formatTime(tomorrow.iftar);
+
+            // Other prayer times
+            const others = data.other_times || {};
+            document.getElementById('fajrTime').textContent = formatTime(others.fajri);
+            document.getElementById('sunriseTime').textContent = formatTime(others.sunrise);
+            document.getElementById('zohrTime').textContent = formatTime(others.zohr);
+            document.getElementById('asrTime').textContent = formatTime(others.asr);
+            document.getElementById('maghribTime').textContent = formatTime(others.maghrib);
+            document.getElementById('ishaTime').textContent = formatTime(others.isha);
+        }
+
+        function formatTime(timeStr) {
+            if (!timeStr) return '--:--';
+            // Remove am/pm and return just the time
+            return timeStr.replace(/\s*(am|pm)/gi, '').trim();
+        }
+
+        function showLoading(show) {
+            const loading = document.getElementById('loadingState');
+            const content = document.getElementById('content');
+            
+            if (show) {
+                loading.classList.remove('hidden');
+                content.style.opacity = '0.3';
+                content.style.pointerEvents = 'none';
+            } else {
+                loading.classList.add('hidden');
+                content.style.opacity = '1';
+                content.style.pointerEvents = 'auto';
+            }
+        }
+
+        function showStatus(message, type) {
+            const bar = document.getElementById('statusBar');
+            bar.textContent = message;
+            bar.className = `status-bar ${type} show`;
+            
+            setTimeout(() => {
+                if (type !== 'offline') hideStatus();
+            }, 3000);
+        }
+
+        function hideStatus() {
+            document.getElementById('statusBar').classList.remove('show');
+        }
+
+        // Register service worker for offline support
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('data:text/javascript;base64,' + btoa(`
+                self.addEventListener('install', e => self.skipWaiting());
+                self.addEventListener('activate', e => e.waitUntil(clients.claim()));
+                self.addEventListener('fetch', e => {
+                    e.respondWith(fetch(e.request).catch(() => caches.match(e.request)));
+                });
+            `)).catch(() => {});
+        }
     </script>
 </body>
-</html>
+        </html>
